@@ -1,0 +1,62 @@
+[
+    {
+        "question": "What is Chaucer's greatest contribution to English Literature?",
+        "options": [
+            "A. Popularizing the literary use of the vernacular English rather than French or Latin.",
+            "B. Being the first to use iambic pentameter.",
+            "C. Introducing the concept of estates satire.",
+            "D. Writing in Middle English, which later evolved into Modern English"
+        ],
+        "answer": "A"
+    },
+    {
+        "question": "When and where was Geoffrey Chaucer born?",
+        "options": [
+            "A. 1359, during the siege of Rheims",
+            "B. 1324, when his father was kidnapped",
+            "C. 1343, in London",
+            "D. 1366, when he married Philippa de Roet"
+        ],
+        "answer": "C"
+    },
+    {
+        "question": "What meter did Chaucer primarily use in his poetry?",
+        "options": [
+            "A. Iambic Tetrameter",
+            "B. Decasyllabic, rhyming couplets",
+            "C. Blank verse",
+            "D. Free verse"
+        ],
+        "answer": "B"
+    },
+    {
+        "question": "Which historical event(s) is/are relevant to the context of Chaucer's work?",
+        "options": [
+            "A. The Black Death",
+            "B. The Hundred Years' War",
+            "C. The Peasant's Revolt",
+            "D. All of the above"
+        ],
+        "answer": "D"
+    },
+    {
+        "question": "Which of Chaucer's works is a collection of stories presented as part of a story-telling contest by a group of pilgrims?",
+        "options": [
+            "A. The Knight's Tale",
+            "B. The Canterbury Tales",
+            "C. The Miller's Tale",
+            "D. The Nun's Priest's Tale"
+        ],
+        "answer": "B"
+    },
+    {
+        "question": "The Canterbury Tales reflects various views of the Church and features characters like the Pardoner and the Summoner. What major theme does this highlight?",
+        "options": [
+            "A. Social Darwinism",
+            "B. Courtly intrigue",
+            "C. Feudalism",
+            "D. Religion"
+        ],
+        "answer": "D"
+    }
+]

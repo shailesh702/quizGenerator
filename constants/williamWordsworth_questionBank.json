@@ -1,0 +1,62 @@
+[
+    {
+        "question": "Which literary movement is Wordsworth most closely associated with?",
+        "options": [
+            "Romanticism",
+            "Realism",
+            "Classicism",
+            "Modernism"
+        ],
+        "answer": "A"
+    },
+    {
+        "question": "What is the title of Wordsworth's autobiographical poem?",
+        "options": [
+            "\"The Prelude\"",
+            "\"Lyrical Ballads\"",
+            "\"I Wandered Lonely as a Cloud\"",
+            "\"Ode to Duty\""
+        ],
+        "answer": "A"
+    },
+    {
+        "question": "Which scenic region inspired much of Wordsworth's poetry?",
+        "options": [
+            "The Alps",
+            "The Sahara Desert",
+            "The Lake District",
+            "The Rocky Mountains"
+        ],
+        "answer": "C"
+    },
+    {
+        "question": "Wordsworth often collaborated with which fellow poet?",
+        "options": [
+            "A. Samuel Taylor Coleridge",
+            "B. Lord Byron",
+            "C. John Keats",
+            "D. Percy Bysshe Shelley"
+        ],
+        "answer":"A"
+    },
+    {
+        "question": "Which poem by Wordsworth famously begins with the lines, \"I wandered lonely as a cloud\"?",
+        "options": [
+            "\"Ode to the West Wind\"",
+            "\"Lines Composed a Few Miles Above Tintern Abbey\"",
+            "\"The Rime of the Ancient Mariner\"",
+            "\"Daffodils\""
+        ],
+        "answer": "D"
+    },
+    {
+        "question": "Wordsworth's emphasis on nature and the individual's relationship with it is reflected in his concept of what?",
+        "options": [
+            "Urbanization",
+            "Industrialization",
+            "Sublimity",
+            "Nature's Pantheon"
+        ],
+        "answer": "C"
+    }
+]

@@ -18,18 +18,24 @@ import {
 import { Progress } from "@/components/ui/progress";
 import Quiz from "@/components/quiz";
 import { Link } from "@/components/ui/link";
-import NextLink from "next/link";
-import { generateQuizTitle } from "./actions";
+// import NextLink from "next/link";
+// import { generateQuizTitle } from "./actions";
 import { AnimatePresence, motion } from "framer-motion";
-import { VercelIcon, GitIcon } from "@/components/icons";
+// import { VercelIcon, GitIcon } from "@/components/icons";
+import wordsworthQuestionBank from "../../constants/williamWordsworth_questionBank.json";
+import chaucerQstBank from "../../constants/chaucer_questionBank.json";
 
 export default function ChatWithFiles() {
   const [files, setFiles] = useState<File[]>([]);
   const [questions, setQuestions] = useState<z.infer<typeof questionsSchema>>(
-    [],
+    []
   );
+  const [questionsWordsworth, setQuestionsWordsworth] = useState<
+    z.infer<typeof questionsSchema>
+  >([]);
   const [isDragging, setIsDragging] = useState(false);
   const [title, setTitle] = useState<string>();
+  const [autherId, setAutherId] = useState<string>("ß");
 
   const {
     submit,
@@ -44,7 +50,9 @@ export default function ChatWithFiles() {
       setFiles([]);
     },
     onFinish: ({ object }) => {
+      console.log("Questions ==> ", object);
       setQuestions(object ?? []);
+      setAutherId("1");
     },
   });
 
@@ -53,14 +61,14 @@ export default function ChatWithFiles() {
 
     if (isSafari && isDragging) {
       toast.error(
-        "Safari does not support drag & drop. Please use the file picker.",
+        "Safari does not support drag & drop. Please use the file picker."
       );
       return;
     }
 
     const selectedFiles = Array.from(e.target.files || []);
     const validFiles = selectedFiles.filter(
-      (file) => file.type === "application/pdf" && file.size <= 5 * 1024 * 1024,
+      (file) => file.type === "application/pdf" && file.size <= 5 * 1024 * 1024
     );
     console.log(validFiles);
 
@@ -82,28 +90,58 @@ export default function ChatWithFiles() {
 
   const handleSubmitWithFiles = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const encodedFiles = await Promise.all(
-      files.map(async (file) => ({
-        name: file.name,
-        type: file.type,
-        data: await encodeFileAsBase64(file),
-      })),
-    );
-    submit({ files: encodedFiles });
-    const generatedTitle = await generateQuizTitle(encodedFiles[0].name);
-    setTitle(generatedTitle);
+    // const encodedFiles = await Promise.all(
+    //   files.map(async (file) => ({
+    //     name: file.name,
+    //     type: file.type,
+    //     data: await encodeFileAsBase64(file),
+    //   })),
+    // );
+    // console.log("encodedFiles[0].name ==> ", encodedFiles)
+    // const inputData = [{
+    //   data: "data:application/pdf;base64,JVBERi0xLjcNCiWhs8XXD",
+    //   name: "ENGLISH POETRY_Chaucer.pdf",
+    //   type: "application/pdf"}]
+    // setAutherId("1");
+    submit({ files: "chaucer" });
+    // const generatedTitle = await generateQuizTitle(encodedFiles[0].name);
+    // setTitle(generatedTitle);
+    
+  };
+
+  const onClickWordsworth = () => {
+    setAutherId("2");
+    const qstData = questionsSchema.safeParse(wordsworthQuestionBank);
+    console.log("qstData ==> ", qstData);
+    if (qstData.success) {
+      setQuestionsWordsworth(qstData.data ?? []);
+    } else {
+      console.error("Parsing failed: ", qstData.error);
+    }
   };
 
   const clearPDF = () => {
     setFiles([]);
     setQuestions([]);
+    setQuestionsWordsworth([]);
+    setAutherId("")
   };
 
   const progress = partialQuestions ? (partialQuestions.length / 4) * 100 : 0;
 
-  if (questions.length === 4) {
+  if (autherId == "1") {
+    return questions.length === 4 ? (
+      <Quiz title={title ?? "Quiz - Chaucer"} questions={questions} clearPDF={clearPDF} />
+    ) : (
+      <p>No questions available</p>
+    );
+  } else if (autherId == "2") {
     return (
-      <Quiz title={title ?? "Quiz"} questions={questions} clearPDF={clearPDF} />
+      <Quiz
+        title={title ?? "Quiz - Williams Wordsworth"}
+        questions={questionsWordsworth}
+        clearPDF={clearPDF}
+      />
     );
   }
 
@@ -144,26 +182,24 @@ export default function ChatWithFiles() {
       <Card className="w-full max-w-md h-full border-0 sm:border sm:h-fit mt-12">
         <CardHeader className="text-center space-y-6">
           <div className="mx-auto flex items-center justify-center space-x-2 text-muted-foreground">
-            <div className="rounded-full bg-primary/10 p-2">
+            {/* <div className="rounded-full bg-primary/10 p-2">
               <FileUp className="h-6 w-6" />
             </div>
             <Plus className="h-4 w-4" />
             <div className="rounded-full bg-primary/10 p-2">
               <Loader2 className="h-6 w-6" />
-            </div>
+            </div> */}
           </div>
           <div className="space-y-2">
-            <CardTitle className="text-2xl font-bold">
-              PDF Quiz Generator
-            </CardTitle>
-            <CardDescription className="text-base">
+            <CardTitle className="text-2xl font-bold">Quiz Generator</CardTitle>
+            {/* <CardDescription className="text-base">
               Upload a PDF to generate an interactive quiz based on its content
               using the <Link href="https://sdk.vercel.ai">AI SDK</Link> and{" "}
               <Link href="https://sdk.vercel.ai/providers/ai-sdk-providers/google-generative-ai">
                 Google&apos;s Gemini Pro
               </Link>
               .
-            </CardDescription>
+            </CardDescription> */}
           </div>
         </CardHeader>
         <CardContent>
@@ -171,7 +207,7 @@ export default function ChatWithFiles() {
             <div
               className={`relative flex flex-col items-center justify-center border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 transition-colors hover:border-muted-foreground/50`}
             >
-              <input
+              {/* <input
                 type="file"
                 onChange={handleFileChange}
                 accept="application/pdf"
@@ -186,12 +222,13 @@ export default function ChatWithFiles() {
                 ) : (
                   <span>Drop your PDF here or click to browse.</span>
                 )}
-              </p>
+              </p> */}
             </div>
             <Button
               type="submit"
               className="w-full"
-              disabled={files.length === 0}
+              // disabled={files.length === 0}
+              id="chaucer"
             >
               {isLoading ? (
                 <span className="flex items-center space-x-2">
@@ -199,7 +236,23 @@ export default function ChatWithFiles() {
                   <span>Generating Quiz...</span>
                 </span>
               ) : (
-                "Generate Quiz"
+                "Generate Quiz on Chaucer"
+              )}
+            </Button>
+            <Button
+              type="button"
+              className="w-full"
+              // disabled={files.length === 0}
+              id="williamwordsworth"
+              onClick={() => onClickWordsworth()}
+            >
+              {isLoading && autherId == "2" ? (
+                <span className="flex items-center space-x-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>Generating Quiz...</span>
+                </span>
+              ) : (
+                "William Wordsworth"
               )}
             </Button>
           </form>
@@ -230,7 +283,7 @@ export default function ChatWithFiles() {
           </CardFooter>
         )}
       </Card>
-      <motion.div
+      {/* <motion.div
         className="flex flex-row gap-4 items-center justify-between fixed bottom-6 text-xs "
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -252,7 +305,7 @@ export default function ChatWithFiles() {
           <VercelIcon size={14} />
           Deploy with Vercel
         </NextLink>
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 }
